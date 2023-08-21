@@ -1,0 +1,39 @@
+Solr commands
+
+Start and Restart Solr:
+- solr start
+- solr restart -p 8983
+
+Creating a core for Solr:
+- solr create -c <core_name>
+
+Pushing JSON info into the core name test_core:
+- curl -X POST -H 'Content-Type:application/json' "http://localhost:8983/solr/<core_name>/update/json/docs" --data-binary 
+"[{'id':'5','title':'Doc 7'}]"
+
+Adding multiple JSON
+- curl -X POST -H 'Content-Type:application/json' "http://localhost:8983/solr/<core_name>/update/json/docs" --data-binary "[{'id':'1','title':'Doc 1'}, {'id':'2','title':'Doc 2'}, {'id':'3','title':'Doc 3'}]"
+
+Updating a JSON document
+- curl -X POST -H 'Content-Type:application/json' "http://localhost:8983/solr/<core_name>/update?versions=true&commit=true" --data-binary "[{'id':'5','title':'Doc 5'}]"
+
+
+Retrieving the document
+- curl http://localhost:8983/solr/<core_name>/get?id=5
+    -> returns {'id':'5','title':'Doc 7'}
+
+Uploading an entire XML file:
+- java -Dc="<core_name>" -jar post.jar <xml_filename>.xml  ---------------> Incorrect
+- curl -X POST -H "Content-Type: application/json" --data-binary @<json_filename>.json http://localhost:8983/solr/<core_name>/update
+
+Queries: 
+1. curl "http://localhost:8983/solr/impact/select?q=description:%22Jewish%20war%22~15"
+2. curl "http://localhost:8983/solr/impact/select?q=description:(action%20OR%20adventure)"
+3. curl "http://localhost:8983/solr/test/select?q=author:%22Rick%20Riordan%22%20AND%20cat:%22book%22%20AND%20cat:%22paperback%22"
+4. q=(-text:apple) AND category:fruit
+5. AND statement--> http://localhost:8983/solr/impact/select?q=description:(Nazi%20AND%20War)%20
+6. q=description:((Nazi OR Iron) AND (War OR Man))
+
+
+
+
