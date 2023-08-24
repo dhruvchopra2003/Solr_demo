@@ -33,6 +33,14 @@ Queries:
 4. q=(-text:apple) AND category:fruit
 5. AND statement--> http://localhost:8983/solr/impact/select?q=description:(Nazi%20AND%20War)%20
 6. q=description:((Nazi OR Iron) AND (War OR Man))
+7. Find word within x words from the beginning: 
+var postData = {
+    q: '{!spanNear slop=0 positionIncrementGap=6}spanNear(\'your_word_here\')',
+    rows: numRows,
+    wt: 'json'
+};
+
+8.Searching for the occurence of "mobile" exactly 15 times with a distance of 0 between them. q=description:"spanNear([10 TO 15], mobile, 5)"
 
 
 

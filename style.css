@@ -13,3 +13,14 @@
 .ref {
     margin: 10px; /* Adjust the value as needed */
 }
+
+#searchQuery {
+    resize: none;
+    overflow-y: hidden;
+
+}
+.queryInput {
+    resize: none;
+    overflow-y: hidden;
+
+}
